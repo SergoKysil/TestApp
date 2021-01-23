@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TestApp.Models.CSVViewModel>
+
+
+<h2>Index</h2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<p>Hello from our View Template!</p>
+<form asp-controller="Home" asp-action="AddRange" method="post"
+      enctype="multipart/form-data">
+
+    <input type="file" name="formFile" accept=".csv" />
+    <br />
+    <button class="btn btn-outline-dark" type="submit">Upload File</button>
+    <br />
+</form>
+
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th hidden>Id </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Date of birth</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MarriedSortParm"]">Married</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PhoneSortParm"]">Phone</a>
+            </th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["SalarySortParm"]">Salary</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <label>@item.Name</label>
+                </td>
+                <td>
+                    <label>@item.DateofBirth</label>
+                </td>
+                <td>
+                    @if (item.IsMarried == true)
+                    {<label>Yes</label>}
+                    else
+                    {<label>No</label>}
+                </td>
+                <td>
+                    <label>@item.Phone</label>
+                </td>
+                <td>
+                    <label>$@item.Salary</label>
+                </td>
+                <td>
+
+                    <a class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+
+
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
